@@ -1,0 +1,28 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="https://i.pinimg.com/736x/e9/ff/73/e9ff7301d3409a0cac7952b159e4f08f.jpg" type="image/jpg">
+    <script src="https://kit.fontawesome.com/d92aa40807.js" crossorigin="anonymous"></script>
+    <title>{{title}}</title>
+    {% tailwind_css %}
+  </head>
+  <body>
+    <nav>{% block Navbar %}{% endblock Navbar %}</nav>
+    <div class="flex flex-auto items-center justify-start">
+      {% block Genres %}{% endblock Genres %}
+      {% block Seasons %}{% endblock Seasons %}
+    </div>
+
+    <div class="flex flex-col justify-center items-center">
+      {% if anime_list %}
+        {% block Card_Animlist %}{% endblock Card_Animlist %}
+        {% block Pagination %}{% endblock Pagination %} 
+      {% endif %}
+    </div>
+        
+    
+  </body>
+</html>

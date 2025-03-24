@@ -1,0 +1,21 @@
+
+<details class="dropdown">
+    <summary class="btn btn-soft btn-primary m-1">Genre</summary>
+    <ul class="menu dropdown-content dropdown-center bg-zinc-700 bg-opacity-80 backdrop-blur-md rounded-box z-10 
+        min-w-[20rem] sm:min-w-[24rem] md:min-w-[28rem] p-4 shadow-lg w-full sm:w-[24rem] md:w-[30rem] max-w-full">
+        
+        <div class="genre-buttons mb-8 max-h-48 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-2">
+            {% for genre in genres %}
+            <li class="w-full">
+                <button class="btn btn-soft btn-info w-full text-center truncate">
+                    <a href="?genre={{ genre.mal_id }}" 
+                       {% if selected_genre == genre.mal_id %} class="underline text-blue-700" {% endif %}>
+                        {{ genre.name }}
+                    </a>
+                </button>
+            </li>
+            {% endfor %}
+        </div>
+    </ul>
+</details>
+

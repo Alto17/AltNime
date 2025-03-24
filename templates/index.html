@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block Card_Animlist %}
+    {% include "snippets/Card.html" %}
+{% endblock Card_Animlist %}
+
+{% block Navbar %}
+    {% include "snippets/Navbar.html" %}
+{% endblock Navbar %}
+
+{% block Pagination %}
+    {% include "snippets/Pagination.html" %}
+{% endblock Pagination %}
+
+{% block Genres %}
+    {% include "snippets/GenreList.html" %}
+{% endblock Genres %}
+
+{% block Seasons %}
+    {% include "snippets/SeasonsList.html" %}
+{% endblock Seasons %}
+
+{% block anime_info %}
+  {% include "details/index.html" %}
+{% endblock anime_info %}

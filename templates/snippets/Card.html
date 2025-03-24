@@ -1,0 +1,42 @@
+{% if anime_list %}
+<div class="flex flex-wrap justify-center gap-3 mt-1">
+  {% for anime in anime_list %}
+  <div
+    class="card bg-[#3C3D37] backdrop-blur-xl bg-black/30 w-40 h-72 sm:w-52 sm:h-80 border border-[#50514a] text rounded-md p-3 flex flex-col justify-between"
+  >
+    <div class="flex flex-col items-center text-center">
+      <!-- Judul anime dengan tinggi minimum agar tetap sejajar -->
+      <h2
+        class="card-title text-xs sm:text-sm font-bold text-white break-words line-clamp-2 min-h-[2.8rem]"
+      >
+        {{ anime.title }}
+      </h2>
+      <!-- Rating berada di baris ke-3 -->
+      <p class="text-xs sm:text-sm font-semibold text-yellow-300 mb-2">
+        ⭐ {{ anime.score }}
+      </p>
+    </div>
+
+    <!-- Gambar dengan posisi selalu di tengah -->
+    <figure
+      class="flex justify-center items-center h-32 sm:h-36 w-full overflow-hidden"
+    >
+      <img
+        src="{{ anime.images.jpg.image_url }}"
+        alt="{{ anime.title }}"
+        class="max-h-full max-w-full object-contain rounded-md"
+      />
+    </figure>
+
+    <!-- Button dengan jarak yang cukup -->
+    <div class="flex justify-center mt-auto">
+      
+        <a href="{% url 'anime-info' anime.mal_id %}" class="btn btn-soft btn-primary text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-2 w-full">More Info</a>
+      
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<h2 class="text-center text-2xl font-bold">No Anime Found</h2>
+{% endif %}

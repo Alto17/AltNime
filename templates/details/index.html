@@ -1,0 +1,112 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://i.pinimg.com/736x/e9/ff/73/e9ff7301d3409a0cac7952b159e4f08f.jpg" type="image/jpg">
+    <script src="https://kit.fontawesome.com/d92aa40807.js" crossorigin="anonymous"></script>
+    <title>{{ anime.title }} - Details</title>
+    {% tailwind_css %}
+</head>
+<body class="text-white">
+
+    {% include "snippets/Navbar.html" %}
+
+    <div class="container mx-auto px-4 py-6">
+        {% if anime %}
+        <button onclick="history.back()" class="p-2 rounded-lg transition">
+            <i class="fa-solid fa-arrow-left text-2xl"></i>
+        </button>
+
+        <h1 class="text-2xl font-bold my-5 text-center sm:text-left">
+            {{ anime.title }}
+        </h1>
+
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+            <img src="{{ anime.images.jpg.image_url }}" 
+                 alt="{{ anime.title }}" 
+                 class="rounded-lg shadow-sm border border-gray-400 sm:w-56 w-full max-w-xs" />
+
+            <div class="space-y-2 w-full">
+                <p class="text-sm sm:text-base">{{ anime.synopsis|default:"No synopsis available." }}</p>
+                <p class="mb-2">⭐ {{ anime.score }}</p>
+                <p><strong>Episodes:</strong> {{ anime.episodes|default:"Unknown" }}</p>
+                <p>
+                    <strong>Genres:</strong>
+                    {% for genre in anime.genres %} {{ genre.name }}{% if not forloop.last %}, {% endif %} {% endfor %}
+                </p>
+                <p><strong>Release Date:</strong> {{ anime.aired.string|default:"Unknown" }}</p>
+                <p>
+                    <strong>Studio:</strong>
+                    {% if anime.studios %}
+                        {% for studio in anime.studios %} {{ studio.name }}{% if not forloop.last %}, {% endif %} {% endfor %}
+                    {% else %}
+                        Unknown
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        {% if trailer_url %}
+        <div id="trailerBox" 
+             class="fixed bottom-4 right-4 sm:right-10 sm:bottom-10 w-72 h-44 sm:w-96 sm:h-56 bg-black/30 shadow-lg border border-gray-400 rounded-lg overflow-hidden transition-transform duration-200 cursor-grab z-50">
+            <div class="bg-zinc-800 text-white flex justify-between items-center p-2 relative">
+                <span class="text-sm font-bold">Trailer</span>
+                <button id="closeBtn" class="text-md font-bold text-white">✖</button>
+            </div>
+            <div id="trailerContainer" class="relative w-full h-full">
+                <iframe id="trailerFrame"
+                        class="absolute inset-0 w-full h-full "
+                        src="{{ trailer_url }}?autoplay=0"
+                        frameborder="0"
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+
+    <script>
+        const trailerBox = document.getElementById("trailerBox");
+        const trailerFrame = document.getElementById("trailerFrame");
+        const closeBtn = document.getElementById("closeBtn");
+        let isDragging = false, offsetX, offsetY;
+
+        // Draggable support for desktop and mobile
+        function startDrag(e) {
+            isDragging = true;
+            offsetX = (e.clientX || e.touches[0].clientX) - trailerBox.getBoundingClientRect().left;
+            offsetY = (e.clientY || e.touches[0].clientY) - trailerBox.getBoundingClientRect().top;
+            trailerBox.classList.add("ring-2", "ring-gray-400");
+        }
+
+        function moveDrag(e) {
+            if (!isDragging) return;
+            let x = (e.clientX || e.touches[0].clientX) - offsetX;
+            let y = (e.clientY || e.touches[0].clientY) - offsetY;
+            trailerBox.style.left = `${x}px`;
+            trailerBox.style.top = `${y}px`;
+        }
+
+        function endDrag() {
+            isDragging = false;
+            trailerBox.classList.remove("ring-2", "ring-gray-400");
+        }
+
+        trailerBox.addEventListener("mousedown", startDrag);
+        trailerBox.addEventListener("touchstart", startDrag);
+        document.addEventListener("mousemove", moveDrag);
+        document.addEventListener("touchmove", moveDrag);
+        document.addEventListener("mouseup", endDrag);
+        document.addEventListener("touchend", endDrag);
+
+        // Close Trailer
+        closeBtn.addEventListener("click", () => {
+            trailerBox.classList.add("hidden");
+        });
+    </script>
+
+</body>
+</html>

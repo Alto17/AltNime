@@ -1,0 +1,35 @@
+<!-- Navbar -->
+<div
+  class="fixed top-0 left-0 w-full bg-zinc-800 backdrop-blur-md bg-black/30 shadow-sm shadow-gray-500 border-b border-gray-400 drop-shadow-xl z-50 py-3"
+>
+  <div class="container mx-auto flex justify-between items-center px-4">
+    <!-- Logo -->
+    <a class="text-xl cursor-pointer flex font-semibold" href="/">
+      <p class="text-blue-500">Alt</p>Nime
+    </a>
+
+    <!-- Menu -->
+    <ul class="flex items-center space-x-4">
+      <li><a href="/" class="hover:text-blue-400 text-md">Home</a></li>
+
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'logout' %}" class="hover:text-red-400 text-md">Logout</a></li>
+      <a href="#">
+        <img
+          src="{{ request.session.profile_image }}"
+          alt="Profile"
+          class="w-10 h-10 rounded-full object-cover"
+        />
+      </a>
+      {% else %}
+      <li><a href="{% url 'login' %}" class="hover:text-green-400 text-md">Login</a></li>
+      <li><a href="{% url 'register' %}" class="hover:text-yellow-400 text-md">Register</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+
+<!-- Tambahkan margin atas agar konten tidak tertutup navbar -->
+<div class="pt-20">
+  <!-- Konten utama di sini -->
+</div>

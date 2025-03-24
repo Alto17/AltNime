@@ -1,0 +1,20 @@
+<div class="flex justify-center mt-4 space-x-2">
+    {% if current_page > 1 %}
+        <a href="?page={{ current_page|add:-1 }}{% if selected_genre %}&genre={{ selected_genre }}{% endif %}{% if selected_season %}&season={{ selected_season }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}" 
+           class="btn px-4 py-2 rounded-md bg-gray-800 text-white hover:bg-gray-700 transition">
+            «
+        </a>
+    {% endif %}
+  
+    <span class="btn px-4 py-2 rounded-md bg-gray-700 text-white font-semibold cursor-default">
+        Page {{ current_page }}
+    </span>
+  
+    {% if has_next_page %}
+        <a href="?page={{ current_page|add:1 }}{% if selected_genre %}&genre={{ selected_genre }}{% endif %}{% if selected_season %}&season={{ selected_season }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}" 
+           class="btn px-4 py-2 rounded-md bg-gray-800 text-white hover:bg-gray-700 transition">
+            »
+        </a>
+    {% endif %}
+  </div>
+  

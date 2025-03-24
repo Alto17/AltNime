@@ -1,0 +1,95 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <script
+      src="https://kit.fontawesome.com/d92aa40807.js"
+      crossorigin="anonymous"
+    ></script>
+    {% tailwind_css %}
+  </head>
+  <body class="bg-base-200 flex items-center justify-center min-h-screen px-4 relative">
+    <!-- Bagian Message Ditaruh di Atas -->
+    <div class="absolute top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-sm">
+      {% for message in messages %}
+      {% if message.tags == "error" %}
+      <div
+        role="alert"
+        class="alert alert-error flex items-center gap-2 transition-opacity duration-500 opacity-100"
+        id="message-alert"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 shrink-0 stroke-current"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <span>{{ message }}</span>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+
+    <form method="POST" class="w-full max-w-sm">
+      {% csrf_token %}
+      <div class="card bg-base-100 w-full shadow-2xl p-6">
+        <div class="card-body">
+          <a class="text-left" href="/">
+            <i class="fa-solid fa-arrow-left text-xl"></i>
+          </a>
+
+          <fieldset class="fieldset">
+            <label class="fieldset-label">Username</label>
+            <input
+              type="text"
+              class="input w-full"
+              placeholder="Username"
+              name="username"
+              required
+            />
+
+            <label class="fieldset-label">Password</label>
+            <input
+              type="password"
+              class="input w-full"
+              placeholder="Password"
+              name="password"
+              required
+            />
+
+            <button class="btn btn-neutral w-full mt-4" type="submit">
+              Login
+            </button>
+
+            <div class="text-center mt-2">
+              <a class="link link-hover" href="{% url 'register' %}">
+                Register Here
+              </a>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </form>
+
+    <!-- JavaScript untuk menyembunyikan pesan otomatis -->
+    <script>
+      setTimeout(() => {
+        const messageAlert = document.getElementById("message-alert");
+        if (messageAlert) {
+          messageAlert.classList.add("opacity-0");
+          setTimeout(() => messageAlert.remove(), 500);
+        }
+      }, 3000);
+    </script>
+  </body>
+</html>
