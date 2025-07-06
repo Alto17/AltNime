@@ -1,2 +1,22 @@
+# Environment Variables
 .env
+
+# Deployment Files
 .vercel
+
+# Node modules
+node_modules/
+
+# Python virtual environments
+.venv/
+env/
+venv/
+
+# Byte-compiled / optimized / DLL files (if using Python)
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
